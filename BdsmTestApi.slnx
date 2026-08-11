@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BdsmTestApi/BdsmTestApi.csproj"/>
+  <Project Path="Sample/FetchExample/FetchExample.csproj"/>
+  <Project Path="Sample/MatchExample/MatchExample.csproj"/>
+</Solution>

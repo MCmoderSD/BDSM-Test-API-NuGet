@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>MCmoderSD.BdsmTestApi</RootNamespace>
+        <AssemblyName>BdsmTestApi</AssemblyName>
+        <IsAotCompatible>true</IsAotCompatible>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>BDSM-Test-API</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>MCmoderSD</Authors>
+        <Company>MCmoderSD.de</Company>
+        <Title>BDSM Test API</Title>
+        <Description>A simple .NET wrapper for fetching results from BDSMTest.org</Description>
+        <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/MCmoderSD/BDSM-Test-API-NuGet</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/MCmoderSD/BDSM-Test-API-NuGet.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>Icon.png</PackageIcon>
+        <PackageTags>bdsmtest;bdsm;api;wrapper;client</PackageTags>
+        <Copyright>Copyright (c) MCmoderSD</Copyright>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugType>embedded</DebugType>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <!-- <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion> -->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\data.json.gz" LogicalName="data.json.gz"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\LICENSE" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\Icon.png" Pack="true" PackagePath="\" Visible="false"/>
+    </ItemGroup>
+
+</Project>

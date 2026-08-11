@@ -1,0 +1,20 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+artifacts/
+release-assets/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# User specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDEs
+.idea/

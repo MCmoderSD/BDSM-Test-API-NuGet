@@ -1,0 +1,78 @@
+name: NuGet Deploy
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+  PROJECT: BdsmTestApi/BdsmTestApi.csproj
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, 'release')
+
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - id: setup-dotnet
+        name: Set up .NET ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - id: restore
+        name: Restore
+        run: dotnet restore "$PROJECT"
+
+      - id: pack
+        name: Build and pack
+        run: dotnet pack "$PROJECT" -c Release --no-restore -o artifacts
+
+      - id: deploy
+        name: Push to Nexus
+        env:
+          NEXUS_URL: ${{ vars.NEXUS_URL }}
+          NEXUS_USERNAME: ${{ vars.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        run: |
+          if [ -z "$NEXUS_URL" ] || [ -z "$NEXUS_USERNAME" ] || [ -z "$NEXUS_PASSWORD" ]; then
+            echo "::error::NEXUS_URL, NEXUS_USERNAME (vars) and NEXUS_PASSWORD (secret) must all be set"
+            exit 1
+          fi
+
+          # Nexus authenticates the push with HTTP basic auth, which dotnet only sends for a
+          # source that has stored credentials. Clear text storage is required on Linux runners
+          # because there is no credential store to encrypt into.
+          dotnet nuget add source "$NEXUS_URL" \
+            --name Nexus \
+            --username "$NEXUS_USERNAME" \
+            --password "$NEXUS_PASSWORD" \
+            --store-password-in-clear-text
+
+          for package in artifacts/*.nupkg; do
+            echo "Pushing $(basename "$package")"
+            dotnet nuget push "$package" \
+              --source Nexus \
+              --api-key "$NEXUS_PASSWORD" \
+              --skip-duplicate
+          done

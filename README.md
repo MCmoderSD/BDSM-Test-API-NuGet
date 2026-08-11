@@ -22,13 +22,13 @@ next to your solution:
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <packageSources>
-        <add key="Nexus" value="https://mcmodersd.de/nexus/repository/nuget-hosted/index.json" />
+        <add key="Nexus" value="https://mcmodersd.de/nexus/repository/nuget-hosted/" />
     </packageSources>
 </configuration>
 ```
 or from the command line:
 ```bash
-dotnet nuget add source https://mcmodersd.de/nexus/repository/nuget-hosted/index.json --name Nexus
+dotnet nuget add source https://mcmodersd.de/nexus/repository/nuget-hosted/ --name Nexus
 ```
 
 Add the package to your project:

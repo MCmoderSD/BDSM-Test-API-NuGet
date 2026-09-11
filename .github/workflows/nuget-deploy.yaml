@@ -42,7 +42,12 @@ jobs:
 
       - id: restore
         name: Restore
-        run: dotnet restore "$PROJECT"
+        env:
+          NEXUS_URL: ${{ vars.NEXUS_URL }}
+        run: |
+          dotnet restore "$PROJECT" \
+            --source https://api.nuget.org/v3/index.json \
+            --source "${NEXUS_URL%/}/index.json"
 
       - id: pack
         name: Build and pack

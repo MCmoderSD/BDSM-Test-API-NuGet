@@ -12,7 +12,7 @@
 
     <PropertyGroup>
         <PackageId>BDSM-Test-API</PackageId>
-        <Version>1.0.0</Version>
+        <Version>1.0.1</Version>
         <Authors>MCmoderSD</Authors>
         <Company>MCmoderSD.de</Company>
         <Title>BDSM Test API</Title>
@@ -33,11 +33,11 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
         <EnablePackageValidation>true</EnablePackageValidation>
-        <!-- <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion> -->
+        <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="11.0.100-rc.1.26425.128" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>

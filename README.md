@@ -33,12 +33,12 @@ dotnet nuget add source https://mcmodersd.de/nexus/repository/nuget-hosted/ --na
 
 Add the package to your project:
 ```bash
-dotnet add package BDSM-Test-API --version 1.0.0
+dotnet add package BDSM-Test-API --version 1.0.1
 ```
 or in your `.csproj` file:
 ```xml
 <ItemGroup>
-    <PackageReference Include="BDSM-Test-API" Version="1.0.0" />
+    <PackageReference Include="BDSM-Test-API" Version="1.0.1" />
 </ItemGroup>
 ```
 
